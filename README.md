@@ -1,16 +1,25 @@
-# sre_v1
-## Steps to Set Up the System
-1. Deploy the application using Kubernetes.
-2. Ensure that Alertmanager is running.
-3. Verify the config map using:
-   ```
-   kubectl get cm alertmanager-config -n monitoring -o yaml
-   ```
-4. If the config map is missing, create it manually.
+# sre_v1  
+## System Setup  
+1. Clone the repo:  
+   ```bash  
+   git clone https://github.com/rahul-kabburi/sre_v1.git  
+   cd sre_v1  
+   ```  
 
-## Issue Faced
-After deploying, running the following command shows that the config map is missing:
-   ```
-   kubectl get cm alertmanager-config -n monitoring -o yaml
-   Error from server (NotFound): configmaps "alertmanager-config" not found
-   ```
+2. Install dependencies (if any):  
+   ```bash  
+   <your-installation-commands-here>  
+   ```  
+
+3. Start the system:  
+   ```bash  
+   <your-startup-command-here>  
+   ```  
+
+## Issue Faced  
+- **Error:** ConfigMap 'alertmanager-config' not found  
+- **Solution:** Create the ConfigMap with:  
+  ```bash  
+  kubectl create configmap alertmanager-config --from-file=alertmanager.yml -n monitoring  
+  ```  
+
