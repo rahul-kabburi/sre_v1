@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: go-sre-agent
+  namespace: monitoring
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: go-sre-agent
+  template:
+    metadata:
+      labels:
+        app: go-sre-agent
+    spec:
+      containers:
+        - name: go-sre-agent
+          image: go-sre-agent:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8080

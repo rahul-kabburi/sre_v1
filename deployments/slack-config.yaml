@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: alertmanager-slack-config
+  namespace: monitoring
+type: Opaque
+stringData:
+  alertmanager.yml: |
+    global:
+      slack_api_url: 'https://hooks.slack.com/services/your/slack/webhook'  # Replace with your Slack webhook URL
+
+    receivers:
+    - name: 'slack-receiver'
+      slack_configs:
+      - api_url: 'https://hooks.slack.com/services/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'  # Replace with your Slack webhook URL
+        channel: '#alerts'  # Slack channel to send alerts to
+        title: "🔥 Alert: {{ .CommonAnnotations.summary }}"
+        text: "{{ .CommonAnnotations.description }}"
+        send_resolved: true
+
+    route:
+      group_interval: 5m
+      group_wait: 10s
+      receiver: 'slack-receiver'   # Default receiver
+      repeat_interval: 3h
+
+    templates:
+      - "/etc/alertmanager/*.tmpl"
